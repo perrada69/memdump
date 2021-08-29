@@ -22,10 +22,15 @@ start
         LD (adresa_arg),HL
         LD HL,$4000
         LD DE,$4001
-        LD BC,$17ff
+        LD BC,$1800
         XOR A
         LD (HL),A
         LDIR
+        LD A,%00111000
+        LD (HL),A
+        LD BC,767
+        LDIR
+
         CALL iniroll
 
 warm_reset
@@ -342,7 +347,13 @@ loop0
         CP 10
         JP Z,nahoru
 
+        CP "a"
+        JP Z,nahoru
+
         CP 11
+        JP Z,dolu
+
+        CP "q"
         JP Z,dolu
 
         CP "h"
@@ -350,10 +361,14 @@ loop0
 
         CP 9
         JP Z,leva
+        CP "p"
+        JP Z,leva
+
 
         CP 8
         JP Z,prava
-
+        CP "o"
+        JP Z,prava
         CP "d"
         JP Z,deca
 
@@ -369,7 +384,7 @@ loop0
         CP "t"
         JP Z,to_text_mode
 
-        CP   "q"
+        CP   1
         RET Z
         JR loop0
 
@@ -409,6 +424,12 @@ memory
         LD HL,23296
         CALL vypocitej_adresu2
         LD (adresa_arg),HL
+
+        LD A,(soustava)
+        CP 10
+        JR Z,nastav104
+        CP 16
+        JR Z,nastav164
         JP warm_reset
 
 to_text_mode
@@ -472,12 +493,12 @@ show_help
         LD HL,con8
         CALL print
 
-        LD HL,88*256+6
+        LD HL,96*256+6
         CALL pozice
         LD HL,con7
         CALL print
 
-        LD HL,96*256+6
+        LD HL,88*256+6
         CALL pozice
         LD HL,con10
         CALL print
@@ -679,11 +700,10 @@ print   LD A,(HL)
         INCLUDE "argument.odn"
         INCLUDE "texty.odn"
         INCLUDE "inkey.odn"
-;        INCLUDE "help_menu.odn"
         INCLUDE "print4b.odn"
         INCLUDE "scroll.odn"
         INCLUDE "input.odn"
 konec_source
-ddd     EQU $-start
-        SAVE "/dot/memdump",$8000,$2000
+dfile   EQU $-start
+        SAVE "/dot/memdump",$8000,dfile
 

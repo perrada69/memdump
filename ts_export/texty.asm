@@ -2,7 +2,7 @@
 
 ;       Texty, ktere se zobrazuji...
 
-title   DZ "Memory dump 0.6 | Enter - help"
+title   DZ "Memory dump 0.7 | Enter - help"
 podtrh  DZ "=============================="
 empty   DZ "                              "
 nadpis  DZ "Addr.|Values                  "
@@ -23,7 +23,7 @@ con3    DZ   "D: decimal view"
 con4    DZ   "Cursors: move"
 con5    DZ   "Shrek/MB Maniax '21"
 con6    DZ   "  Press any key..."
-con7    DZ   "Q: quit to Basic"
+con7    DZ   "BREAK: quit"
 con8    DZ   "T: text mode"
 con9    DZ   "SPACE: switch font"
 con10   DZ   "M: new address"
